@@ -10,10 +10,63 @@
     <span class="page__label"
       >Выполнил: Баратов Виктор КБ ПММ 2 курс 21 группа 26.10.2024</span
     >
-    <main class="main">
-      <h1 class="page__title">Игра <span class="flowtext">Ним</span></h1>
-      <button class="button button_type-start">
-        <span type="button" class="button__text ">Начать</span>
+    <h1 class="page__title">Игра <span class="flowtext">Ним</span></h1>
+    <main class="main main__game">
+      <h1 class="page__title element_hide">
+        Игра <span class="flowtext">Ним</span>
+      </h1>
+      <button type="button" class="button button_type-start element_hide">
+        <span class="button__text">Начать</span>
+      </button>
+
+      <ul class="handful-container handful-container-game">
+        <li class="handful">
+          <p class="handful__number">1.</p>
+          <ul class="handful-list__image">
+            <li class="handful-list__image-item"></li>
+            <li class="handful-list__image-item"></li>
+            <li class="handful-list__image-item"></li>
+            <li class="handful-list__image-item"></li>
+            <li class="handful-list__image-item"></li>
+            <li class="handful-list__image-item"></li>
+            <li class="handful-list__image-item"></li>
+            <li class="handful-list__image-item"></li>
+            <li class="handful-list__image-item"></li>
+            <li class="handful-list__image-item"></li>
+            <li class="handful-list__image-item"></li>
+            <li class="handful-list__image-item"></li>
+            <li class="handful-list__image-item"></li>
+          </ul>
+          <p class="handful__count">10 шт.</p>
+        </li>
+        <li class="handful"></li>
+        <li class="handful"></li>
+        <li class="handful"></li>
+        <li class="handful"></li>
+        <li class="handful"></li>
+        <li class="handful"></li>
+        <li class="handful"></li>
+      </ul>
+      <ul class="game-history-container">
+        <li class="history-item">Игрок взял 5 шт. из кучки №10</li>
+        <li class="history-item">Игрок взял 5 шт. из кучки №10</li>
+        <li class="history-item">Игрок взял 5 шт. из кучки №10</li>
+        <li class="history-item">Игрок взял 5 шт. из кучки №10</li>
+      </ul>
+      <form class="conrtol__panel">
+        <p class="panel-text">Взять из кучки [№]</p>
+        <input
+          class="popup__input conrtol__panel-input"
+          type="number"
+          placeholder=""
+        />
+        <p class="panel-text">предметов</p>
+        <button type="submit" class="button control__button">
+          <span class="button__text">✔️</span>
+        </button>
+      </form>
+      <button class="button button__restart">
+        <span class="button__text danger-color">Рестарт</span>
       </button>
     </main>
     <footer class="footer"></footer>
@@ -59,7 +112,7 @@
             <p class="instruction">1. Выберете кучку из списка</p>
             <p class="instruction">2. Введите желаемое кол-во предметов</p>
             <p class="instruction">3. Нажмите кнопку добавить</p>
-            </div>
+          </div>
           <form class="popup__form" name="start-game">
             <input
               class="popup__input popup__input_type_how-many-handful"
@@ -91,20 +144,13 @@
               </ul>
               <p class="handful__count">10 шт.</p>
             </li>
-            <li class="handful">
-            </li>
-            <li class="handful">
-            </li>
-            <li class="handful">
-            </li>
-            <li class="handful">
-            </li>
-            <li class="handful">
-            </li>
-            <li class="handful">
-            </li>
-            <li class="handful">
-            </li>
+            <li class="handful"></li>
+            <li class="handful"></li>
+            <li class="handful"></li>
+            <li class="handful"></li>
+            <li class="handful"></li>
+            <li class="handful"></li>
+            <li class="handful"></li>
           </ul>
         </div>
         <button type="submit" class="button popup__button popup__button-start">
