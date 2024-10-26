@@ -10,36 +10,19 @@
     <span class="page__label"
       >Выполнил: Баратов Виктор КБ ПММ 2 курс 21 группа 26.10.2024</span
     >
-    <h1 class="page__title">Игра <span class="flowtext">Ним</span></h1>
-    <main class="main main__game">
-      <h1 class="page__title element_hide">
+    <h1 class="page__title game__title bluetext element_hide">
+      Игра <span class="flowtext">Ним</span>
+    </h1>
+    <main class="main main__start">
+      <h1 class="page__title bluetext">
         Игра <span class="flowtext">Ним</span>
       </h1>
-      <button type="button" class="button button_type-start element_hide">
+      <button type="button" class="button button_type-start">
         <span class="button__text">Начать</span>
       </button>
 
-      <ul class="handful-container handful-container-game">
-        <li class="handful">
-          <p class="handful__number">1.</p>
-          <ul class="handful-list__image">
-            <li class="handful-list__image-item"></li>
-            <li class="handful-list__image-item"></li>
-            <li class="handful-list__image-item"></li>
-            <li class="handful-list__image-item"></li>
-            <li class="handful-list__image-item"></li>
-            <li class="handful-list__image-item"></li>
-            <li class="handful-list__image-item"></li>
-            <li class="handful-list__image-item"></li>
-            <li class="handful-list__image-item"></li>
-            <li class="handful-list__image-item"></li>
-            <li class="handful-list__image-item"></li>
-            <li class="handful-list__image-item"></li>
-            <li class="handful-list__image-item"></li>
-          </ul>
-          <p class="handful__count">10 шт.</p>
-        </li>
-        <li class="handful"></li>
+      <ul class="handful-container handful-container-game element_hide">
+        <li class="handful handful-checked"></li>
         <li class="handful"></li>
         <li class="handful"></li>
         <li class="handful"></li>
@@ -47,13 +30,10 @@
         <li class="handful"></li>
         <li class="handful"></li>
       </ul>
-      <ul class="game-history-container">
-        <li class="history-item">Игрок взял 5 шт. из кучки №10</li>
-        <li class="history-item">Игрок взял 5 шт. из кучки №10</li>
-        <li class="history-item">Игрок взял 5 шт. из кучки №10</li>
-        <li class="history-item">Игрок взял 5 шт. из кучки №10</li>
+      <ul class="game-history-container element_hide">
+        <!--вставить ходы-->
       </ul>
-      <form class="conrtol__panel">
+      <form class="conrtol__panel element_hide">
         <p class="panel-text">Взять из кучки [№]</p>
         <input
           class="popup__input conrtol__panel-input"
@@ -65,11 +45,11 @@
           <span class="button__text">✔️</span>
         </button>
       </form>
-      <button class="button button__restart">
+      <button class="button button__restart element_hide">
         <span class="button__text danger-color">Рестарт</span>
       </button>
     </main>
-    <footer class="footer"></footer>
+
     <div class="popup popup_type-start popup_is-animated">
       <div class="popup__content">
         <div class="title_and_button">
@@ -90,11 +70,24 @@
           <input
             class="popup__input popup__input_type_number-of-handful"
             type="number"
+            name="number-of-handful"
             min="1"
             max="100"
             placeholder="Сколько кучек?"
             required
           />
+
+          <label>
+          <input
+            type="checkbox"
+            name="whoFirst"
+            value="computer"
+            class="form__checkbox visually-hidden"
+          />
+          <span></span>
+          Соперник первый
+          </label>
+
           <button type="submit" class="button popup__button">
             <span class="button__text">Далее</span>
           </button>
@@ -111,46 +104,23 @@
           <div class="instruction-container">
             <p class="instruction">1. Выберете кучку из списка</p>
             <p class="instruction">2. Введите желаемое кол-во предметов</p>
-            <p class="instruction">3. Нажмите кнопку добавить</p>
+            <p class="instruction">3. Нажмите кнопку присвоить</p>
           </div>
-          <form class="popup__form" name="start-game">
+          <form class="popup__form" name="assignItem">
             <input
               class="popup__input popup__input_type_how-many-handful"
               type="number"
-              max="100"
+              max="99"
+              name="assignCount"
               placeholder="Сколько предметов добавить?"
+              required
             />
-            <button type="submit" class="button popup__button">
-              <span class="button__text">Добавить</span>
+            <button name='assignButton' type="submit" class="button popup__button assign-button">
+              <span class="button__text">Присвоить</span>
             </button>
           </form>
           <ul class="handful-container">
-            <li class="handful">
-              <p class="handful__number">1.</p>
-              <ul class="handful-list__image">
-                <li class="handful-list__image-item"></li>
-                <li class="handful-list__image-item"></li>
-                <li class="handful-list__image-item"></li>
-                <li class="handful-list__image-item"></li>
-                <li class="handful-list__image-item"></li>
-                <li class="handful-list__image-item"></li>
-                <li class="handful-list__image-item"></li>
-                <li class="handful-list__image-item"></li>
-                <li class="handful-list__image-item"></li>
-                <li class="handful-list__image-item"></li>
-                <li class="handful-list__image-item"></li>
-                <li class="handful-list__image-item"></li>
-                <li class="handful-list__image-item"></li>
-              </ul>
-              <p class="handful__count">10 шт.</p>
-            </li>
-            <li class="handful"></li>
-            <li class="handful"></li>
-            <li class="handful"></li>
-            <li class="handful"></li>
-            <li class="handful"></li>
-            <li class="handful"></li>
-            <li class="handful"></li>
+            <!--вставить кучки-->
           </ul>
         </div>
         <button type="submit" class="button popup__button popup__button-start">
@@ -158,5 +128,23 @@
         </button>
       </div>
     </div>
+
+    <template class="history-item-template">
+      <li class="history-item">1. Игрок взял 5 шт. из кучки №10</li>
+    </template>
+
+    <template class="handful-template">
+      <li class="handful">
+        <p class="handful__number"></p>
+        <ul class="handful-list__image">
+          <!--вставить предметы-->
+        </ul>
+        <p class="handful__count"></p>
+      </li>
+    </template>
+
+    <template class="handful-list__image-item-template">
+      <li class="handful-list__image-item"></li>
+    </template>
   </body>
 </html>

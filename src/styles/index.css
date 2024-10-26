@@ -44,7 +44,7 @@
   display: grid;
   grid-template-columns: 2fr 1fr;
   grid-template-rows: 6fr 1fr;
-  background-color: rgba(46, 214, 229, 0.8);
+  background-color: var(--background-color);
   border: 1px solid var(--accent-color);
 }
 
@@ -68,6 +68,10 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: textflow 5s linear infinite;
+}
+
+.bluetext {
+  color: #334dff;
 }
 
 @keyframes textflow {
@@ -243,7 +247,7 @@
   border: 1px solid black;
   padding: 5px;
   display: flex;
-  gap: 5px;
+  gap: 10px;
   overflow: auto;
   justify-content: start;
   flex-direction: column;
@@ -263,6 +267,7 @@
   border: 1px solid black;
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
 .handful__number {
@@ -277,6 +282,7 @@
   min-width: 50px;
   border-left: 1px solid var(--accent-color);
   border-right: 1px solid var(--accent-color);
+  justify-content: center;
 }
 
 .handful-list__image {
@@ -290,6 +296,11 @@
   background-size: 35px 35px;
   min-width: 35px;
   min-height: 35px;
+}
+
+.handful-checked {
+  border: 2px solid red;
+  border-radius: 5px;
 }
 
 /**-------------popup---------------------- **/
@@ -307,7 +318,7 @@
 
 .history-item {
   border: 1px solid var(--accent-color);
-  background-color: rgb(50 122 207 / 56%);
+  border-radius: 5px;
   padding: 2px;
 }
 
@@ -340,4 +351,21 @@
 
 .element_hide {
   display: none;
+}
+
+
+label span {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin-right: 5px;
+  vertical-align: middle;
+  border: 1px solid var(--accent-color);
+}
+
+input[type='checkbox']:checked + span {
+  background-image: url(../../image/close.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 }
