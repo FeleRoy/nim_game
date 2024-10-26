@@ -54,3 +54,31 @@ export function unchekedAllHandful(handfuls){
 export function makeChecked(handful){
     handful.classList.add('handful-checked');
 }
+
+export function handlerHandfulClick(evt, handfuls){
+    // если цель наша кучка
+    if (evt.target.classList.contains('handful')) {
+        unchekedAllHandful(handfuls);
+        makeChecked(evt.target);
+    }
+    // если родитель наша кучка
+    if(evt.target.parentNode.classList.contains('handful')){
+        unchekedAllHandful(handfuls);
+        makeChecked(evt.target.parentNode);
+    }
+    // если родитель родителя это наша кучка
+    if(evt.target.parentNode.parentNode.classList.contains('handful')){
+        unchekedAllHandful(handfuls);
+        makeChecked(evt.target.parentNode.parentNode);
+    }
+}
+
+export function clearEmptyHandfuls(handfulContainer){
+    const items = Array.from(handfulContainer.querySelectorAll('.handful'));
+    items.forEach((item) =>{
+        const count = item.querySelector('.handful__count');
+        if(count.textContent === '0 шт.'){
+            item.remove();
+        }
+    })
+}

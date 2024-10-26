@@ -1,7 +1,7 @@
 const main = document.querySelector('.main');
 const handfulContainerGame = main.querySelector('.handful-container-game');
 const gameHistoryContainer = main.querySelector('.game-history-container');
-const gameControlPanel = main.querySelector('.conrtol__panel');
+const gameControlPanel = document.querySelector(".control__panel");
 const buttonRestart= main.querySelector('.button__restart');
 const titleGame = document.querySelector('.game__title');
 const titlePage = main.querySelector('.page__title');

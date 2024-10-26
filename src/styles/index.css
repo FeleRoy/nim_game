@@ -333,7 +333,7 @@
   font-weight: var(--weight-bold);
 }
 
-.conrtol__panel {
+.control__panel {
   display: flex;
   align-items: center;
   gap: 10px;
