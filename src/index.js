@@ -16,6 +16,7 @@ import {
   makeChecked,
   handlerHandfulClick,
   clearEmptyHandfuls,
+  takeItemsFromHandful
 } from "../scripts/handful";
 const main = document.querySelector(".main");
 const popupStart = document.querySelector(".popup_type-start");
@@ -44,7 +45,7 @@ const formStart = document.forms["start-game"];
 
 const gameControlPanel = document.querySelector(".control__panel");
 const panelText = gameControlPanel.querySelector(".panel-text");
-const panelInput = gameControlPanel.querySelector(".control__panel-input");
+const panelInput = gameControlPanel.panelInput;
 const buttonControl = gameControlPanel.querySelector(".control__button");
 
 buttonStart.addEventListener("click", () => {
@@ -77,6 +78,9 @@ buttonGameStart.addEventListener("click", () => {
     handfulContainerGame.append(item);
   });
   clearEmptyHandfuls(handfulContainerGame);
+  const handfulActive = handfulContainerGame.querySelector(".handful-checked");
+  const handfulId = handfulActive.querySelector('.handful__number').textContent;
+  panelText.textContent = `Взять из кучки №${handfulId}`;
   showGame();
 });
 
@@ -91,6 +95,7 @@ formAssign.addEventListener("submit", (evt) => {
   if (handfulActive) {
     appendItems(handfulActive, countAssign.value);
   }
+  formAssign.reset();
 });
 
 HandfulPopupContainer.addEventListener("click", (evt) => {
@@ -101,8 +106,17 @@ HandfulPopupContainer.addEventListener("click", (evt) => {
 handfulContainerGame.addEventListener("click", (evt) => {
   const handfuls = Array.from(handfulContainerGame.querySelectorAll("li"));
   handlerHandfulClick(evt, handfuls);
+  const handfulActive = handfulContainerGame.querySelector(".handful-checked");
+  const handfulId = handfulActive.querySelector('.handful__number').textContent;
+  panelText.textContent = `Взять из кучки №${handfulId}`;
 });
 
 gameControlPanel.addEventListener("submit", (evt) => {
   evt.preventDefault();
+  const handfulActive = handfulContainerGame.querySelector(".handful-checked");
+  takeItemsFromHandful(handfulActive, panelInput.value);  
 });
+//@to-do 
+// Обработка если все кучки пустые
+// Обработка отрицательного значения после забирания предмета из кучки
+// переписать логику записи штук sad sad sad или нет 
