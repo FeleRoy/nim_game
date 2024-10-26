@@ -11,8 +11,46 @@
   background-position: center;
   background-size: cover;
   background-attachment: fixed;
+  position: relative;
 }
 
+.page__label {
+  position: absolute;
+  top: 25px;
+  right: 13px;
+  z-index: 1;
+  opacity: 30%;
+}
+
+.main {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+}
+
+.page__title {
+  font-family: var(--accent-font), sans-serif;
+  font-size: 50px;
+  font-weight: 400;
+}
+
+.flowtext {
+  background: linear-gradient(90deg, #e933ff, #ffb400, #ff3333, #334dff, #e933ff);
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textflow 5s linear infinite;
+}
+
+@keyframes textflow {
+  from {background-position: 0% center}         
+  to {background-position: 200% center}
+}
 
 /**-------------button--------------------- **/
 .button {
@@ -48,6 +86,12 @@
 
 .button:hover::after {
   width: 100%;
+}
+
+.button_type-start {
+  width: 150px;
+  height: 50px;
+  font-size: 20px;
 }
 /**-------------button--------------------- **/
 
@@ -98,28 +142,125 @@
 
 .popup__content {
     position: relative;
-    max-width: 430px;
-    min-height: 330px;
+    min-width: 290px;
+    min-height: 210px;
     border: 1px solid var(--accent-color);
     display: flex;
     flex-direction: column;
     background-color: var(--background-color);
-    
+    justify-content: space-between;
 }
 
 .title_and_button {
   display: flex;
   justify-content: space-between;
+  border-bottom: 1px solid var(--accent-color);
 }
 
 .popup__title {
   align-self: center;
   font-size: 22px;
+  margin-left: 5px;
 }
 
 .popup__form {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
 }
+
+.popup__input_type_against-whom {
+  width: 140px;
+  height: 30px;
+}
+
+.popup__input_type_number-of-handful  {
+  width: 140px;
+  height: 30px;
+  
+}
+
+.popup__button {
+  margin-bottom: 10px;
+}
+
+
+.popup__content-how-many {
+  width: 500px;
+  height: 600px;
+}
+
+.instruction-container {
+  border: 2px solid;
+  border-image: linear-gradient(90deg, #ff3333, #334dff, #e933ff) 30;
+}
+
+.popup__button-start {
+  align-self: center;
+  margin-top: 10px;
+}
+
+.form__content-how-many {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  height: 100%;
+  justify-content: space-between;
+  
+}
+
+.handful-container {
+  position: relative;
+  width: 100%;
+  height: 290px;
+  border: 1px solid black;
+  padding: 5px;
+  display: flex;
+  gap: 5px;
+  overflow: auto;
+  justify-content: start;
+  flex-direction: column;
+  
+}
+
+.popup__input_type_how-many-handful {
+  width: 260px;
+}
+
+.handful {
+  width: 100%;
+  min-height: 50px;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+}
+
+.handful__number {
+  font-size: 20px;
+  margin-left: 10px;
+}
+
+.handful__count {
+  display: flex;
+  margin-left: auto;
+  margin-right: 10px;
+}
+
+.handful-list__image {
+  overflow: hidden;
+  display: flex;
+  max-width: 345px;
+  gap: 1px;
+}
+
+.handful-list__image-item {
+  background: transparent url('../../image/bitcoin.svg') center no-repeat;
+  background-size: 35px 35px;
+  min-width: 35px;
+  min-height: 35px;
+}
+
 /**-------------popup---------------------- **/

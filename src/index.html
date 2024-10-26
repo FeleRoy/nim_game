@@ -4,10 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ним</title>
+    <link rel="icon" href="<%=require('../image/icons8-favorite-64.png')%>" />
   </head>
   <body class="page">
+    <span class="page__label"
+      >Выполнил: Баратов Виктор КБ ПММ 2 курс 21 группа 26.10.2024</span
+    >
     <main class="main">
-      <button class="button button_type-start"><span class="button__text">Далее</span></button>
+      <h1 class="page__title">Игра <span class="flowtext">Ним</span></h1>
+      <button class="button button_type-start">
+        <span type="button" class="button__text ">Начать</span>
+      </button>
     </main>
     <footer class="footer"></footer>
     <div class="popup popup_type-start popup_is-animated">
@@ -17,14 +24,92 @@
           <button class="popup__button-close"></button>
         </div>
         <form class="popup__form" name="start-game">
-          <select name="against-whom" id="against-whom" required>
+          <select
+            class="popup__input popup__input_type_against-whom"
+            name="against-whom"
+            id="against-whom"
+            required
+          >
             <option value="">-- Против кого? --</option>
             <option value="computer">Компьютер</option>
             <option value="man">Человек</option>
           </select>
-          <input type="number" max="100">
-          <button type="submit" class="button popup__button"><span class="button__text">Далее</span></button>
-        </form>  
+          <input
+            class="popup__input popup__input_type_number-of-handful"
+            type="number"
+            min="1"
+            max="100"
+            placeholder="Сколько кучек?"
+            required
+          />
+          <button type="submit" class="button popup__button">
+            <span class="button__text">Далее</span>
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="popup popup_type-how-many popup_is-animated">
+      <div class="popup__content popup__content-how-many">
+        <div class="title_and_button">
+          <h3 class="popup__title">Настройки кучек</h3>
+          <button class="popup__button-close"></button>
+        </div>
+        <div class="form__content-how-many">
+          <div class="instruction-container">
+            <p class="instruction">1. Выберете кучку из списка</p>
+            <p class="instruction">2. Введите желаемое кол-во предметов</p>
+            <p class="instruction">3. Нажмите кнопку добавить</p>
+            </div>
+          <form class="popup__form" name="start-game">
+            <input
+              class="popup__input popup__input_type_how-many-handful"
+              type="number"
+              max="100"
+              placeholder="Сколько предметов добавить?"
+            />
+            <button type="submit" class="button popup__button">
+              <span class="button__text">Добавить</span>
+            </button>
+          </form>
+          <ul class="handful-container">
+            <li class="handful">
+              <p class="handful__number">1.</p>
+              <ul class="handful-list__image">
+                <li class="handful-list__image-item"></li>
+                <li class="handful-list__image-item"></li>
+                <li class="handful-list__image-item"></li>
+                <li class="handful-list__image-item"></li>
+                <li class="handful-list__image-item"></li>
+                <li class="handful-list__image-item"></li>
+                <li class="handful-list__image-item"></li>
+                <li class="handful-list__image-item"></li>
+                <li class="handful-list__image-item"></li>
+                <li class="handful-list__image-item"></li>
+                <li class="handful-list__image-item"></li>
+                <li class="handful-list__image-item"></li>
+                <li class="handful-list__image-item"></li>
+              </ul>
+              <p class="handful__count">10 шт.</p>
+            </li>
+            <li class="handful">
+            </li>
+            <li class="handful">
+            </li>
+            <li class="handful">
+            </li>
+            <li class="handful">
+            </li>
+            <li class="handful">
+            </li>
+            <li class="handful">
+            </li>
+            <li class="handful">
+            </li>
+          </ul>
+        </div>
+        <button type="submit" class="button popup__button popup__button-start">
+          <span class="button__text">Начать игру</span>
+        </button>
       </div>
     </div>
   </body>
