@@ -17,7 +17,8 @@ import {
   handlerHandfulClick,
   clearEmptyHandfuls,
   takeItemsFromHandful,
-  canITake
+  canITake,
+  containerIsEmpty
 } from "../scripts/handful";
 import { addHistoryMessage, addErrorMessage } from "../scripts/history";
 const main = document.querySelector(".main");
@@ -52,7 +53,7 @@ const buttonControl = gameControlPanel.querySelector(".control__button");
 
 const finalPopup = document.querySelector('.popup_type-final');
 const finalPopupButtonClose = finalPopup.querySelector('.popup__button-close');
-
+const finalText = finalPopup.querySelector('.end-message')
 let messageCounter = 1;
 
 finalPopupButtonClose.addEventListener("click", () =>{
@@ -138,15 +139,31 @@ gameControlPanel.addEventListener("submit", (evt) => {
     addHistoryMessage(gameHistoryContainer, messageCounter, handfulActive, panelInput.value, 'Человек');
     messageCounter++;
     if (Number(handfulActiveValue) === Number(panelInput.value)) {
-      addErrorMessage(gameHistoryContainer, handfulActive, 1);
+      addErrorMessage(gameHistoryContainer,handfulActive, 1);
+      clearEmptyHandfuls(handfulContainerGame);
     }
     clearEmptyHandfuls(handfulContainerGame);
+    if (containerIsEmpty(handfulContainerGame)){
+      addErrorMessage(gameHistoryContainer,handfulActive, 2);
+      panelText.textContent = `Взять из кучки №`;
+      finalText.textContent = `Кто-то выиграл!`;
+      openModal(finalPopup);
+    }
     gameControlPanel.reset();
   } else {
-    addErrorMessage(gameHistoryContainer, handfulActive);
+    addErrorMessage(gameHistoryContainer,handfulActive, 3)
   }
   } else {
-    addErrorMessage(gameHistoryContainer, handfulActive, 2);
+    //если нет активных кучек
+    if (containerIsEmpty(handfulContainerGame)){
+      addErrorMessage(gameHistoryContainer,handfulActive, 2);
+      panelText.textContent = `Взять из кучки №`;
+      finalText.textContent = `Кто-то выиграл!`;
+      openModal(finalPopup);
+    } else {
+      addErrorMessage(gameHistoryContainer,handfulActive, 4);
+    }
+    
   }
   
 });

@@ -19,24 +19,25 @@ export function addErrorMessage(historyContainer, handful, flag) {
         return;
     }
 
-
-
-    const handfulNumber = handful.querySelector('.handful__number').textContent;
-    if (flag === 1){
+    if ((flag === 1) && (handful)){
+        const handfulNumber = handful.querySelector('.handful__number').textContent;
         historyItemElement.classList.add('message-good');
         historyItemElement.textContent = `Из кучки №${handfulNumber} забрали всё`;
         historyContainer.prepend(historyItemElement);
         return;
     }
 
-    if (handful) {
+    if (flag === 3) {
         historyItemElement.classList.add('message-error');
         historyItemElement.textContent = 'В кучке меньше предметов';
         historyContainer.prepend(historyItemElement);
-    } else {
+        return;
+    } 
+    if (flag === 4){
         historyItemElement.classList.add('message-info');
         historyItemElement.textContent = 'Выберете кучку';
         historyContainer.prepend(historyItemElement);
+        return;
     }
 
 }
