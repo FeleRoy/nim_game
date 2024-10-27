@@ -100,7 +100,7 @@ buttonGameStart.addEventListener("click", () => {
   }
   showGame();
   if ((formStart['whoFirst'].checked) && (formStart['against-whom'].value === 'computer')) {  
-    setTimeout(() => {  computerMove(handfulContainerGame); }, 1000);
+    setTimeout(() => {  computerMove(handfulContainerGame); }, 500);
   }
   if ((formStart['whoFirst'].checked) && (formStart['against-whom'].value === 'man')) {  
     whoseMove = 'Соперник';
@@ -161,7 +161,7 @@ gameControlPanel.addEventListener("submit", (evt) => {
     }
     gameControlPanel.reset();
     if(formStart['against-whom'].value === 'computer'){
-      setTimeout(() => {  computerMove(handfulContainerGame); }, 1000);
+      setTimeout(() => {  computerMove(handfulContainerGame); }, 500);
     }
     if(formStart['against-whom'].value === 'man' && (!containerIsEmpty(handfulContainerGame))){
       whoseMove = changeWhoseMove(whoseMove);
@@ -242,3 +242,13 @@ function changeWhoseMove (whoseMove) {
     return 'Игрок';
   }
 }
+
+//@to-do
+//почистить код
+//проверить баги
+//               Добавить комментарии!!!!!!!!!!!!!!!!!!!!
+
+// Возможные добавления:
+// Выбрать имя игрока и соперника
+// увеличить количество предметов до неограниченного
+// 
