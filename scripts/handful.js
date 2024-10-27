@@ -85,14 +85,23 @@ export function clearEmptyHandfuls(handfulContainer){
 
 export function takeItemsFromHandful(handful, count){
     const handfulCount = handful.querySelector('.handful__count');
-    //беру элементы до "шт." Знаю, что можно было бы разделить число и текст, но я уже целый день сижу за этой игрой(
-    //если надо будет >100 предметов, то нужно будет переписать код
+    //беру элементы до "шт." Знаю, что можно было бы разделить число и текст
+    //если надо будет >100 предметов, то нужно будет переписать код (удалить вырезание подстроки)
     const handfulCountString = handfulCount.textContent.substring(0, 2);
     const handfulImageList = handful.querySelector('.handful-list__image');
     deleteItemsFromContainer(handfulImageList);
     handfulCount.textContent = `${String(Number(handfulCountString) - Number(count))} шт.`;
     appendImage(handfulImageList, Number(handfulCountString) - Number(count));
-    
+}
 
-
+export function canITake(handful, value){
+    if (handful){
+    const handfulCount = handful.querySelector('.handful__count');
+    const handfulCountString = handfulCount.textContent.substring(0, 2);
+    if ((Number(handfulCountString) < Number(value))) {
+        return false;
+    } else {
+        return true;
+    }
+    }
 }

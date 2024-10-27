@@ -369,3 +369,20 @@ input[type='checkbox']:checked + span {
   background-position: center;
   background-size: contain;
 }
+
+.message-error {
+  background-color: rgba(238, 5, 5, 0.514);
+}
+
+.message-info {
+  background-color: rgba(5, 28, 238, 0.514);
+}
+
+.message-good {
+  background-color: rgba(5, 238, 63, 0.514);
+}
+
+.end-message {
+  text-align: center;
+  margin: 10px;
+}

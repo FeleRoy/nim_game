@@ -16,9 +16,10 @@ import {
   makeChecked,
   handlerHandfulClick,
   clearEmptyHandfuls,
-  takeItemsFromHandful
+  takeItemsFromHandful,
+  canITake
 } from "../scripts/handful";
-import { addHistoryMessage } from "../scripts/history";
+import { addHistoryMessage, addErrorMessage } from "../scripts/history";
 const main = document.querySelector(".main");
 const popupStart = document.querySelector(".popup_type-start");
 const buttonStart = document.querySelector(".button_type-start");
@@ -49,7 +50,14 @@ const panelText = gameControlPanel.querySelector(".panel-text");
 const panelInput = gameControlPanel.panelInput;
 const buttonControl = gameControlPanel.querySelector(".control__button");
 
+const finalPopup = document.querySelector('.popup_type-final');
+const finalPopupButtonClose = finalPopup.querySelector('.popup__button-close');
+
 let messageCounter = 1;
+
+finalPopupButtonClose.addEventListener("click", () =>{
+  closeModal(finalPopup);
+})
 
 buttonStart.addEventListener("click", () => {
   openModal(popupStart);
@@ -81,14 +89,18 @@ buttonGameStart.addEventListener("click", () => {
     handfulContainerGame.append(item);
   });
   clearEmptyHandfuls(handfulContainerGame);
+
   const handfulActive = handfulContainerGame.querySelector(".handful-checked");
-  const handfulId = handfulActive.querySelector('.handful__number').textContent;
-  panelText.textContent = `Взять из кучки №${handfulId}`;
+  if(handfulActive){
+    const handfulId = handfulActive.querySelector('.handful__number').textContent;
+    panelText.textContent = `Взять из кучки №${handfulId}`;
+  }
   showGame();
 });
 
 buttonRestart.addEventListener("click", () => {
   formStart.reset();
+  deleteItemsFromContainer(handfulContainerGame);
   showStart();
 });
 
@@ -110,16 +122,33 @@ handfulContainerGame.addEventListener("click", (evt) => {
   const handfuls = Array.from(handfulContainerGame.querySelectorAll("li"));
   handlerHandfulClick(evt, handfuls);
   const handfulActive = handfulContainerGame.querySelector(".handful-checked");
+  if (handfulActive){
   const handfulId = handfulActive.querySelector('.handful__number').textContent;
   panelText.textContent = `Взять из кучки №${handfulId}`;
+  }
 });
 
 gameControlPanel.addEventListener("submit", (evt) => {
   evt.preventDefault();
   const handfulActive = handfulContainerGame.querySelector(".handful-checked");
-  takeItemsFromHandful(handfulActive, panelInput.value);  
-  addHistoryMessage(gameHistoryContainer, messageCounter, handfulActive, panelInput.value, 'Человек');
-  messageCounter++;
+  if (handfulActive){
+  const handfulActiveValue = handfulActive.querySelector('.handful__count').textContent.substring(0, 2);
+  if (canITake(handfulActive, panelInput.value)) {
+    takeItemsFromHandful(handfulActive, panelInput.value);  
+    addHistoryMessage(gameHistoryContainer, messageCounter, handfulActive, panelInput.value, 'Человек');
+    messageCounter++;
+    if (Number(handfulActiveValue) === Number(panelInput.value)) {
+      addErrorMessage(gameHistoryContainer, handfulActive, 1);
+    }
+    clearEmptyHandfuls(handfulContainerGame);
+    gameControlPanel.reset();
+  } else {
+    addErrorMessage(gameHistoryContainer, handfulActive);
+  }
+  } else {
+    addErrorMessage(gameHistoryContainer, handfulActive, 2);
+  }
+  
 });
 //@to-do 
 // Обработка если все кучки пустые
