@@ -54,7 +54,9 @@ const buttonControl = gameControlPanel.querySelector(".control__button");
 const finalPopup = document.querySelector('.popup_type-final');
 const finalPopupButtonClose = finalPopup.querySelector('.popup__button-close');
 const finalText = finalPopup.querySelector('.end-message')
+
 let messageCounter = 1;
+let whoseMove = "Игрок";
 
 finalPopupButtonClose.addEventListener("click", () =>{
   closeModal(finalPopup);
@@ -97,11 +99,19 @@ buttonGameStart.addEventListener("click", () => {
     panelText.textContent = `Взять из кучки №${handfulId}`;
   }
   showGame();
+  if ((formStart['whoFirst'].checked) && (formStart['against-whom'].value === 'computer')) {  
+    setTimeout(() => {  computerMove(handfulContainerGame); }, 1000);
+  }
+  if ((formStart['whoFirst'].checked) && (formStart['against-whom'].value === 'man')) {  
+    whoseMove = 'Соперник';
+  }
 });
 
 buttonRestart.addEventListener("click", () => {
   formStart.reset();
   deleteItemsFromContainer(handfulContainerGame);
+  deleteItemsFromContainer(gameHistoryContainer);
+  gameControlPanel.reset();
   showStart();
 });
 
@@ -136,7 +146,7 @@ gameControlPanel.addEventListener("submit", (evt) => {
   const handfulActiveValue = handfulActive.querySelector('.handful__count').textContent.substring(0, 2);
   if (canITake(handfulActive, panelInput.value)) {
     takeItemsFromHandful(handfulActive, panelInput.value);  
-    addHistoryMessage(gameHistoryContainer, messageCounter, handfulActive, panelInput.value, 'Человек');
+    addHistoryMessage(gameHistoryContainer, messageCounter, handfulActive, panelInput.value, whoseMove);
     messageCounter++;
     if (Number(handfulActiveValue) === Number(panelInput.value)) {
       addErrorMessage(gameHistoryContainer,handfulActive, 1);
@@ -146,10 +156,17 @@ gameControlPanel.addEventListener("submit", (evt) => {
     if (containerIsEmpty(handfulContainerGame)){
       addErrorMessage(gameHistoryContainer,handfulActive, 2);
       panelText.textContent = `Взять из кучки №`;
-      finalText.textContent = `Кто-то выиграл!`;
+      finalText.textContent = `${whoseMove} выиграл!`;
       openModal(finalPopup);
     }
     gameControlPanel.reset();
+    if(formStart['against-whom'].value === 'computer'){
+      setTimeout(() => {  computerMove(handfulContainerGame); }, 1000);
+    }
+    if(formStart['against-whom'].value === 'man' && (!containerIsEmpty(handfulContainerGame))){
+      whoseMove = changeWhoseMove(whoseMove);
+    }
+
   } else {
     addErrorMessage(gameHistoryContainer,handfulActive, 3)
   }
@@ -158,17 +175,17 @@ gameControlPanel.addEventListener("submit", (evt) => {
     if (containerIsEmpty(handfulContainerGame)){
       addErrorMessage(gameHistoryContainer,handfulActive, 2);
       panelText.textContent = `Взять из кучки №`;
-      finalText.textContent = `Кто-то выиграл!`;
+      finalText.textContent = `${whoseMove} выиграл!`;
       openModal(finalPopup);
     } else {
       addErrorMessage(gameHistoryContainer,handfulActive, 4);
     }
     
   }
-  console.log(computerMove(handfulContainerGame));
+  
 });
 
-function computerMove(handfulContainerGame){
+function bestMove(handfulContainerGame){
     const handfuls = Array.from(handfulContainerGame.querySelectorAll(".handful"));
     if (handfuls){
     let xorSumm = 0;
@@ -182,9 +199,6 @@ function computerMove(handfulContainerGame){
       const randomHandful = handfuls[Math.floor(Math.random() * handfuls.length)];
       const handfulCountNumber = Number(randomHandful.querySelector('.handful__count').textContent.substring(0, 2));
       const randomCount = Math.floor(Math.random() * handfulCountNumber) + 1;
-
-
-
       return{ handful: randomHandful, countRemove: randomCount, random: true};
     }
 
@@ -196,5 +210,35 @@ function computerMove(handfulContainerGame){
         return { handful: handfuls[i], countRemove: handfulToRemove, random: false};
       }
     }
+  }
+}
+
+function computerMove(handfulContainerGame){
+  whoseMove = 'Компьютер';
+  const move = bestMove(handfulContainerGame);
+  const currentCount = move.handful.querySelector('.handful__count').textContent.substring(0, 2);
+  takeItemsFromHandful(move.handful, move.countRemove);  
+  addHistoryMessage(gameHistoryContainer, messageCounter, move.handful, move.countRemove, whoseMove);
+  messageCounter++;
+  if (Number(currentCount) === Number(move.countRemove)) {
+    addErrorMessage(gameHistoryContainer, move.handful, 1);
+    clearEmptyHandfuls(handfulContainerGame);
+  }
+  clearEmptyHandfuls(handfulContainerGame);
+  if (containerIsEmpty(handfulContainerGame)){
+    addErrorMessage(gameHistoryContainer, move.handful, 2);
+    panelText.textContent = `Взять из кучки №`;
+    finalText.textContent = `${whoseMove} выиграл!`;
+    openModal(finalPopup);
+    return;
+  } 
+  whoseMove = 'Игрок';
+}
+
+function changeWhoseMove (whoseMove) {
+  if (whoseMove === 'Игрок'){
+    return 'Соперник';
+  }else {
+    return 'Игрок';
   }
 }
