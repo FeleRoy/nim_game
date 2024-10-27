@@ -386,3 +386,15 @@ input[type='checkbox']:checked + span {
   text-align: center;
   margin: 10px;
 }
+
+@media (width < 830px) {
+  .main__game {
+    width: 100vw;
+    height: 50vh;
+  }
+  .button__restart {
+    max-width: 50px;
+    max-height: 20px;
+    font-size: 10px;
+  }
+}
