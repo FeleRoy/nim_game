@@ -18,6 +18,7 @@ import {
   clearEmptyHandfuls,
   takeItemsFromHandful
 } from "../scripts/handful";
+import { addHistoryMessage } from "../scripts/history";
 const main = document.querySelector(".main");
 const popupStart = document.querySelector(".popup_type-start");
 const buttonStart = document.querySelector(".button_type-start");
@@ -47,6 +48,8 @@ const gameControlPanel = document.querySelector(".control__panel");
 const panelText = gameControlPanel.querySelector(".panel-text");
 const panelInput = gameControlPanel.panelInput;
 const buttonControl = gameControlPanel.querySelector(".control__button");
+
+let messageCounter = 1;
 
 buttonStart.addEventListener("click", () => {
   openModal(popupStart);
@@ -115,6 +118,8 @@ gameControlPanel.addEventListener("submit", (evt) => {
   evt.preventDefault();
   const handfulActive = handfulContainerGame.querySelector(".handful-checked");
   takeItemsFromHandful(handfulActive, panelInput.value);  
+  addHistoryMessage(gameHistoryContainer, messageCounter, handfulActive, panelInput.value, 'Человек');
+  messageCounter++;
 });
 //@to-do 
 // Обработка если все кучки пустые
