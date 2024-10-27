@@ -165,9 +165,36 @@ gameControlPanel.addEventListener("submit", (evt) => {
     }
     
   }
-  
+  console.log(computerMove(handfulContainerGame));
 });
-//@to-do 
-// Обработка если все кучки пустые
-// Обработка отрицательного значения после забирания предмета из кучки
-// переписать логику записи штук sad sad sad или нет 
+
+function computerMove(handfulContainerGame){
+    const handfuls = Array.from(handfulContainerGame.querySelectorAll(".handful"));
+    if (handfuls){
+    let xorSumm = 0;
+    handfuls.forEach((handful) => {
+      const handfulCount = handful.querySelector('.handful__count');
+      const handfulCountNumber = Number(handfulCount.textContent.substring(0, 2));
+      xorSumm = xorSumm ^ handfulCountNumber;
+    })
+    
+    if (xorSumm === 0) {
+      const randomHandful = handfuls[Math.floor(Math.random() * handfuls.length)];
+      const handfulCountNumber = Number(randomHandful.querySelector('.handful__count').textContent.substring(0, 2));
+      const randomCount = Math.floor(Math.random() * handfulCountNumber) + 1;
+
+
+
+      return{ handful: randomHandful, countRemove: randomCount, random: true};
+    }
+
+    for(let i = 0; i < handfuls.length; i++){
+      const handfulCountNumber = Number(handfuls[i].querySelector('.handful__count').textContent.substring(0, 2));
+      const targetHandful = handfulCountNumber ^ xorSumm;
+      if (targetHandful < handfulCountNumber){
+        const handfulToRemove = handfulCountNumber - targetHandful;
+        return { handful: handfuls[i], countRemove: handfulToRemove, random: false};
+      }
+    }
+  }
+}
