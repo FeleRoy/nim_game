@@ -1,4 +1,4 @@
-
+//функция создания кучки
 export function createHandful(number, itemCount) {
     const handfulTemplate = document.querySelector('.handful-template').content;
     const handfulElement = handfulTemplate.querySelector('.handful').cloneNode(true);
@@ -14,6 +14,7 @@ export function createHandful(number, itemCount) {
     return handfulElement;
 }
 
+//функция добавления кучек в контейнер
 export function appendHandful(container, count) {
     for (let i = 1; i <= count; i++){
         const handful = createHandful(i, 0);
@@ -21,6 +22,7 @@ export function appendHandful(container, count) {
     }
 }
 
+// функция добавления картинок в кучку
 export function appendImage(container, count) {
     const handfulImageTemplate = document.querySelector('.handful-list__image-item-template').content;
     for (let i = 1; i<= count; i++){
@@ -29,6 +31,7 @@ export function appendImage(container, count) {
     }
 }
 
+// функция удаления предметов из контейнера
 export function deleteItemsFromContainer(container) {
     const items = Array.from(container.querySelectorAll('li'));
     items.forEach((item) =>{
@@ -36,6 +39,7 @@ export function deleteItemsFromContainer(container) {
     })
 }
 
+// функция добавления предметов в кучку
 export function appendItems(handful, itemCount) {
     const handfulCount = handful.querySelector('.handful__count');
     const handfulImageList = handful.querySelector('.handful-list__image');
@@ -43,6 +47,7 @@ export function appendItems(handful, itemCount) {
     appendImage(handfulImageList, itemCount);
 }
 
+// функция снятия класса выбранной кучки
 export function unchekedAllHandful(handfuls){
     handfuls.forEach((item)=>{
         if(item.classList.contains('handful-checked')){
@@ -50,11 +55,12 @@ export function unchekedAllHandful(handfuls){
         }
     });
 }
-
+// функция добавления класса выбранной кучке
 export function makeChecked(handful){
     handful.classList.add('handful-checked');
 }
 
+// обработчик выбора кучки
 export function handlerHandfulClick(evt, handfuls){
     // если цель наша кучка
     if (evt.target.classList.contains('handful')) {
@@ -72,7 +78,7 @@ export function handlerHandfulClick(evt, handfuls){
         makeChecked(evt.target.parentNode.parentNode);
     }
 }
-
+// функция убирания пустых кучек
 export function clearEmptyHandfuls(handfulContainer){
     const items = Array.from(handfulContainer.querySelectorAll('.handful'));
     items.forEach((item) =>{
@@ -82,7 +88,7 @@ export function clearEmptyHandfuls(handfulContainer){
         }
     })
 }
-
+// функция забирания предметов из кучки
 export function takeItemsFromHandful(handful, count){
     const handfulCount = handful.querySelector('.handful__count');
     const handfulCountString = handfulCount.textContent.substring(0, 2);
@@ -92,6 +98,7 @@ export function takeItemsFromHandful(handful, count){
     appendImage(handfulImageList, Number(handfulCountString) - Number(count));
 }
 
+//функция проверки возможности взятия предметов из кучки
 export function canITake(handful, value){
     if (handful){
     const handfulCount = handful.querySelector('.handful__count');
@@ -103,7 +110,7 @@ export function canITake(handful, value){
     }
     }
 }
-
+// проверка контейнера на пустоту 
 export function containerIsEmpty(container){
     const items = Array.from(container.querySelectorAll('li'));
     if (items.length === 0) {

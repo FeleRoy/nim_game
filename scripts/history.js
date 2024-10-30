@@ -1,5 +1,4 @@
 
-
 export function addHistoryMessage(historyContainer, messageId, handfulActive, value, who) {
     const historyItemTemplate = document.querySelector('.history-item-template').content;
     const historyItemElement = historyItemTemplate.querySelector('.history-item').cloneNode(true);
