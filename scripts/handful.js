@@ -1,3 +1,4 @@
+
 //функция создания кучки
 export function createHandful(number, itemCount) {
     const handfulTemplate = document.querySelector('.handful-template').content;
@@ -116,6 +117,20 @@ export function containerIsEmpty(container){
     if (items.length === 0) {
         return true;
     } else{
+        return false;
+    }
+}
+
+export function allHandfulsIsEmpty(container) {
+    const handfuls = Array.from(container.querySelectorAll('.handful'));
+    let sum = 0;
+    handfuls.forEach((handful)=>{
+        const handfulCount = Number(handful.querySelector('.handful__count').textContent.substring(0, 2));
+        sum += handfulCount;
+    })
+    if(sum === 0){
+        return true;
+    } else {
         return false;
     }
 }

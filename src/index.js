@@ -20,7 +20,8 @@ import {
   clearEmptyHandfuls,
   takeItemsFromHandful,
   canITake,
-  containerIsEmpty
+  containerIsEmpty,
+  allHandfulsIsEmpty
 } from "../scripts/handful";
 import { addHistoryMessage, addErrorMessage } from "../scripts/history";
 
@@ -94,6 +95,9 @@ buttonHowManyClose.addEventListener("click", () => {
 
 //обработчик кнопки старта игры из последнего модального окна
 buttonGameStart.addEventListener("click", () => {
+  if (allHandfulsIsEmpty(HandfulPopupContainer)){
+    alert('Заполните хотя бы одну кучку');
+  }else {
   closeModal(popupHowMany);
   //добавляем кучки в игровой контейнер
   const handfuls = Array.from(
@@ -109,6 +113,7 @@ buttonGameStart.addEventListener("click", () => {
     const handfulId = handfulActive.querySelector('.handful__number').textContent;
     panelText.textContent = `Взять из кучки №${handfulId}`;
   }
+
   showGame();
 
   //обработчик чекбокса кто ходит первый
@@ -117,6 +122,7 @@ buttonGameStart.addEventListener("click", () => {
   }
   if ((formStart['whoFirst'].checked) && (formStart['against-whom'].value === 'man')) {  
     whoseMove = 'Соперник';
+  }
   }
 });
 
@@ -185,7 +191,7 @@ gameControlPanel.addEventListener("submit", (evt) => {
     gameControlPanel.reset();
 
     //передаём ход противнику (либо ходит компьютер, либо меняем имя на противоположное)
-    if(formStart['against-whom'].value === 'computer'){
+    if(formStart['against-whom'].value === 'computer' && (!containerIsEmpty(handfulContainerGame))){
       setTimeout(() => {  computerMove(handfulContainerGame); }, 500);
     }
     if(formStart['against-whom'].value === 'man' && (!containerIsEmpty(handfulContainerGame))){
