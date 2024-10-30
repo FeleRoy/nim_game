@@ -25,6 +25,7 @@ export function appendHandful(container, count) {
 
 // функция добавления картинок в кучку
 export function appendImage(container, count) {
+    if(count > 12){count = 12}
     const handfulImageTemplate = document.querySelector('.handful-list__image-item-template').content;
     for (let i = 1; i<= count; i++){
         const handfulImageElement = handfulImageTemplate.querySelector('.handful-list__image-item').cloneNode(true);
