@@ -122,6 +122,7 @@ export function containerIsEmpty(container){
     }
 }
 
+// если все кучки пустые
 export function allHandfulsIsEmpty(container) {
     const handfuls = Array.from(container.querySelectorAll('.handful'));
     let sum = 0;

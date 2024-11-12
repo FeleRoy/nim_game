@@ -4,8 +4,6 @@ import "./styles/index.css";
 import {
   openModal,
   closeModal,
-  closeByEsc,
-  closeByOverlay,
 } from "../scripts/modal";
 import { showGame, showStart } from "../scripts/screen";
 import {
@@ -29,7 +27,7 @@ import { addHistoryMessage, addErrorMessage } from "../scripts/history";
 const main = document.querySelector(".main");
 const popupStart = document.querySelector(".popup_type-start");
 const buttonStart = document.querySelector(".button_type-start");
-const buttonNext = popupStart.querySelector(".popup__button");
+
 const popupHowMany = document.querySelector(".popup_type-how-many");
 
 const buttonStartClose = popupStart.querySelector(".popup__button-close");
@@ -37,7 +35,7 @@ const buttonHowManyClose = popupHowMany.querySelector(".popup__button-close");
 const buttonGameStart = popupHowMany.querySelector(".popup__button-start");
 
 const formAssign = document.forms.assignItem;
-const buttonAssign = formAssign.querySelector(".assign-button");
+
 const countAssign = formAssign.assignCount;
 
 const HandfulPopupContainer = popupHowMany.querySelector(".handful-container");
@@ -54,11 +52,12 @@ const formStart = document.forms["start-game"];
 const gameControlPanel = document.querySelector(".control__panel");
 const panelText = gameControlPanel.querySelector(".panel-text");
 const panelInput = gameControlPanel.panelInput;
-const buttonControl = gameControlPanel.querySelector(".control__button");
+
 
 const finalPopup = document.querySelector('.popup_type-final');
 const finalPopupButtonClose = finalPopup.querySelector('.popup__button-close');
-const finalText = finalPopup.querySelector('.end-message')
+const finalText = finalPopup.querySelector('.end-message');
+const finalGif = finalPopup.querySelector('.final-gif');
 
 let messageCounter = 1;
 let whoseMove = "Игрок";
@@ -186,6 +185,10 @@ gameControlPanel.addEventListener("submit", (evt) => {
       addErrorMessage(gameHistoryContainer,handfulActive, 2);
       panelText.textContent = `Взять из кучки №`;
       finalText.textContent = `${whoseMove} выиграл!`;
+      if (whoseMove != "Компьютер") {
+        finalGif.src = "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExMDZnMWF4YTZ2Mnp5eWlkZXRkdTViZTB2Zm82Ynl4N2tham5tOG52byZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/10FwycrnAkpshW/giphy.gif";
+      }
+
       openModal(finalPopup);
     }
     gameControlPanel.reset();
@@ -237,16 +240,28 @@ function bestMove(handfulContainerGame){
       return{ handful: randomHandful, countRemove: randomCount, random: true};
     }
 
+    let xorSummString = xorSumm.toString(2);
+    let dischargeNum = 0;
+    for (let i = 0; i < xorSummString.length; i++){
+      if (xorSummString[i] === "1"){
+        dischargeNum = xorSummString.length - i;
+        break;
+      }
+    }
     // если сумма не равна нулю, то ищем лучший ход
     for(let i = 0; i < handfuls.length; i++){
       const handfulCountNumber = Number(handfuls[i].querySelector('.handful__count').textContent.substring(0, 2));
-      // складываем по модулю 2 предметы кучки и сумму, чтобы получить значение = сколько предметов в кучке должно быть
-      const targetHandful = handfulCountNumber ^ xorSumm;
-      //если можем такое количество сделать, то делаем, иначе идём дальше по циклу
-      if (targetHandful < handfulCountNumber){
-        const handfulToRemove = handfulCountNumber - targetHandful;
-        return { handful: handfuls[i], countRemove: handfulToRemove, random: false};
+      const handfulCountBin = handfulCountNumber.toString(2);
+      if (dischargeNum <= handfulCountBin.length){
+      for(let j = 0; j < handfulCountBin; j++){
+        if (handfulCountBin[handfulCountBin.length - Number(dischargeNum)] === "1"){
+          const targetHandful = handfulCountNumber ^ xorSumm;
+          const handfulToRemove = handfulCountNumber - targetHandful;
+          return { handful: handfuls[i], countRemove: handfulToRemove, random: false};
+        }
       }
+      }
+      
     }
   }
 }
@@ -255,7 +270,8 @@ function bestMove(handfulContainerGame){
 function computerMove(handfulContainerGame){
   whoseMove = 'Компьютер';
   const move = bestMove(handfulContainerGame);
-  const currentCount = move.handful.querySelector('.handful__count').textContent.substring(0, 2);
+  const currentHandful = move.handful
+  const currentCount = currentHandful.querySelector('.handful__count').textContent.substring(0, 2);
   takeItemsFromHandful(move.handful, move.countRemove);  
   addHistoryMessage(gameHistoryContainer, messageCounter, move.handful, move.countRemove, whoseMove);
   messageCounter++;
